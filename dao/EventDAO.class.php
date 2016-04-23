@@ -49,6 +49,10 @@ class EventDAO extends AbstractDAO{
         return $this->find("SELECT * FROM event;");
     }
     
+    public function findUnfinished() {
+        return $this->find("SELECT * FROM event WHERE date>=now();");
+    }
+    
     public function findByOrganizer($idO) {
         return $this->find("SELECT * FROM event WHERE organizer_id=".$idO.";");
     }
@@ -76,7 +80,6 @@ class EventDAO extends AbstractDAO{
     public function findByType($type){
         return $this->find("SELECT e.* FROM event e, event_type t WHERE e.type_id=t.id and t.type=".$type.";");
     }
-    
 
     public function insert($event) {
         if ($event == null)

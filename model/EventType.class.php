@@ -6,6 +6,7 @@ class EventType {
     const HIKE = 1;
     const RUN = 2;
     const OTHER = 3;
+    const UNDEFINED = 4;
 
     private $especification;
     private $type;
@@ -48,7 +49,9 @@ class EventType {
             return EventType::HIKE;
         if ($type == "RUN")
             return EventType::RUN;
-        return EventType::OTHER;
+        if($type == "OTHER")
+            return EventType::OTHER;
+        return EventType::UNDEFINED;
     }
 
     public static function toString($type) {
@@ -58,14 +61,16 @@ class EventType {
             return "HIKE";
         if ($type == EventType::RUN)
             return "RUN";
-        return "OTHER";
+        if($type==EventType::OTHER)
+            return "OTHER";
+        return "UNDEFINED";
     }
 
     public function __toString() {
         return "EventType{" .
                 "id=" . $this->id .
                 ", type='" . EventType::toString($this->type) . '\'' .
-                ", especification='" . $this->especification . '\'' .
+                ", specification='" . $this->especification . '\'' .
                 '}';
     }
     
@@ -74,15 +79,22 @@ class EventType {
     }
     
     public static function fromArray($m){
-        return new EventType($m['id'], EventType::getEventType($m['type']), $m['especification']);
+        return new EventType($m['id'], EventType::getEventType($m['type']), $m['specification']);
     }
 
+    public function isCompatible($other){
+        if($other->getType()!=EventType::UNDEFINED){
+            if($other->getType()!=$this->type) return false;
+            if($other->getType()==EventType::OTHER && $other->getEspecification()!=$this->especification) return false;
+        }
+        return true;
+    }
 
     public function toArray(){
         return array(
             'id' => $this->id,
             'type' => EventType::toString($this->type),
-            'especification' => $this->especification
+            'specification' => $this->especification
         );
     }
 

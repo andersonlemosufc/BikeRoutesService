@@ -73,6 +73,15 @@
         return "{\"ints\" : [".((int)$res)."]}";
     }
     
+    function invite_many_people($idE, $idsUsersJson){
+        $idUs = JsonParser::decodeSimpleArray($idsUsersJson);
+        $res = true;
+        foreach($idUs['ints'] as $idU){
+            $res = ($res && (invite($idE, $idU, false)));
+        }
+        return "{\"ints\" : [".((int)$res)."]}";
+    }
+    
     function find_users_event($idE, $confirmed){
         $dao = new UserDAO();
         if($confirmed) $l = $dao->findByEventConfirmed($idE);
@@ -91,4 +100,52 @@
         return $res;
     }
 
+    //user_id=0&distance=0&type=&specification_type=&date=&hour=&latitude=&longitude=
+    
+    function search_available_to_user($idU, $distance,$type,$specification,$date,$hour,$latitude,$longitude){
+        $r = eventsAvailables($idU, findByParams($distance, $type, $specification, $date, $hour, $latitude, $longitude));
+        return "{\"events\":". JsonParser::encondeObjectArray($r). "}";
+    }
+    
+    function search_block_available_to_user($pos, $len, $idU, $distance,$type,$specification,$date,$hour,$latitude,$longitude){
+        $r = find_block(eventsAvailables($idU, findByParams($distance, $type, $specification, $date, $hour, $latitude, $longitude)),$pos,$len);
+        return "{\"events\":". JsonParser::encondeObjectArray($r). "}";
+    }
+    
+    function eventsAvailables($idU, $events){
+        $res = [];
+        $dao = new UserEventDAO();
+        foreach($events as $e){
+            $ue = $dao->findById($idU, $e->getId());
+            if($ue==null){
+                if(!$e->isSecret()) { $res[] = $e;}
+            } else {
+                if($ue['confirmed']==false) { $res[] = $e;}
+            } 
+        }
+        $dao->close();
+        return $res;
+    }
+    
+    function findByParams($distance,$type,$specification,$date,$hour,$latitude,$longitude){
+        $dao = new EventDAO();
+        $l = $dao->findUnfinished();
+        $dao->close();
+        $res = [];
+        foreach($l as $e){
+            if($distance!=0 && $distance!="" && $latitude!="" && $longitude!="") 
+                if(!$e->getDeparture()->insideRadius($latitude, $longitude,$distance) && 
+                        !$e->getArrival()->insideRadius($latitude, $longitude,$distance)) {continue;}
+            if($type!="") {
+                if($type!=EventType::toString($e->getType()->getType())) {continue;}
+                if($type==EventType::toString(EventType::OTHER) && $specification!=null && 
+                        $specification!=$e->getType()->getEspecification()) {continue;}
+            }
+            if($date!=null && $date!=explode(" ",$e->getDate())[0]) {continue;}
+            if($hour!=null && $hour!=explode(" ",$e->getDate())[1]) {continue;}
+            $res[] = $e;
+        }
+        return $res;
+    }
+    
 ?>

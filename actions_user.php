@@ -168,4 +168,43 @@
         return $res;
     }
     
+    function find_by_mail_or_name($str){
+        $dao = new UserDAO();
+        $users = $dao->findByNameOrMail($str);
+        $dao->close();
+        $res = "{\"users\":". JsonParser::encondeObjectArray($users). "}";
+        return $res;
+    }
+    
+    function find_block_by_mail_or_name($str, $pos, $len){
+        $dao = new UserDAO();
+        $users = $dao->findByNameOrMail($str);
+        $dao->close();
+        $res = "{\"users\":". JsonParser::encondeObjectArray(find_block($users,$pos,$len)). "}";
+        return $res;
+    }
+    
+    function find_by_login($mail, $password){
+        $aux = "";
+        $dao = new UserDAO();
+        $u = $dao->findByMail($mail);
+        $dao->close();
+        if($u!=null && $u->getPassword()==$password) $aux = $u->toJson();
+        $res = "{\"users\":[" . $aux . "]}";
+        return $res;
+    }
+    
+    function retrieve_password($mail, $password){
+        $aux = 0;
+        $dao = new UserDAO();
+        $u = $dao->findByMail($mail);
+        if($u!=null){
+            $u->setPassword($password);
+            $aux = $dao->update($u);
+            send_mail_retrieve_password($mail, $password);
+        }
+        $dao->close();
+        return "{\"ints\" : [".$aux."]}";
+    }
+    
 ?>

@@ -5,16 +5,13 @@
         <group>
             <file>file:/C:/xampp/htdocs/projetos/byke_routes/index.php</file>
             <file>file:/C:/xampp/htdocs/projetos/byke_routes/dao/UserEventDAO.class.php</file>
-            <file>file:/C:/xampp/htdocs/projetos/byke_routes/teste.php</file>
             <file>file:/C:/xampp/htdocs/projetos/byke_routes/util.php</file>
-            <file>file:/C:/xampp/htdocs/projetos/byke_routes/dao/UserDAO.class.php</file>
+            <file>file:/C:/xampp/htdocs/projetos/byke_routes/teste.php</file>
+            <file>file:/C:/xampp/htdocs/projetos/byke_routes/model/EventType.class.php</file>
             <file>file:/C:/xampp/htdocs/projetos/byke_routes/model/Location.class.php</file>
             <file>file:/C:/xampp/htdocs/projetos/byke_routes/model/JsonParser.class.php</file>
-            <file>file:/C:/xampp/htdocs/projetos/byke_routes/dao/EventDAO.class.php</file>
-            <file>file:/C:/xampp/htdocs/projetos/byke_routes/actions_user.php</file>
-            <file>file:/C:/xampp/htdocs/projetos/byke_routes/model/Event.class.php</file>
             <file>file:/C:/xampp/htdocs/projetos/byke_routes/actions_event.php</file>
-            <file>file:/C:/xampp/htdocs/projetos/byke_routes/dao/FriendsDAO.class.php</file>
+            <file>file:/C:/xampp/htdocs/projetos/byke_routes/model/Event.class.php</file>
         </group>
     </open-files>
 </project-private>
