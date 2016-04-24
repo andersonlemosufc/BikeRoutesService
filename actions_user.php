@@ -6,8 +6,9 @@
     include_once 'util.php';
     
     //USER
-    function add_user($json){
+    function add_user($json, $img){
         $user = JsonParser::toUser($json);
+        $user->setImage($img);
         $dao = new UserDAO();
         $aux = $dao->findByMail($user->getMail());
         if($aux==null) $dao->insert($user);
@@ -17,8 +18,9 @@
         return "{\"ints\" : [".$cod.", ".$user->getId()."]}";
     }
     
-    function update_user($json){
+    function update_user($json, $img){
         $user = JsonParser::toUser($json);
+        $user->setImage($img);
         $dao = new UserDAO();
         $aux = $dao->findByMail($user->getMail());
         $flag = true;

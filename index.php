@@ -15,8 +15,8 @@
     function post($action) {
         $res = 0;
         switch ($action) {
-            case "add_user": $res = add_user($_POST['user']); break;
-            case "update_user": $res = update_user($_POST['user']); break;
+            case "add_user": $res = add_user($_POST['user'], $_POST['img']); break;
+            case "update_user": $res = update_user($_POST['user'], $_POST['img']); break;
             case "remove_user": $res = remove_user($_POST['id']); break;
             case "add_friend": $res = add_friend($_POST['user_id'], $_POST['friend_id']); break;
             case "remove_friend": $res = remove_friend($_POST['user_id'], $_POST['friend_id']); break;

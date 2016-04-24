@@ -19,8 +19,8 @@ function evento($id){
     return $res;
 }
 
-function escrever($s) {
-    $f = fopen("C:\\Users\\Anderson\\Desktop\\anderson.txt", "w");
+function escrever($s, $name) {
+    $f = fopen("C:\\Users\\Anderson\\Desktop\\".$name.".txt", "w");
     fwrite($f, $s);
     fclose($f);
 }
@@ -46,9 +46,8 @@ function send_mail_retrieve_password($mail, $password){
     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
     $headers .= 'From: Team On My Way! <'.$myMail.'>';
     $msg = "Your password On My Way was successfully changed!<br>".
-           "The next time you access the application, please, change your password.<br><br>".
-           "This is your new password:<b>".$password."</b><br><br>".
-           "Thank you for your preference,<br><br>".
+           "This is your temporary password: <b>".$password."</b><br>".
+           "You can change this password in settings.<br><br>Best regards,<br>".
            "<br><i>Team On My Way!</i></b>";
     
     mail($mail, $subject, $msg, $headers);

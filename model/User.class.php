@@ -158,13 +158,13 @@ class User {
             'mail' => $this->mail,
             'password' => $this->password,
             'description' => $this->description,
-            'gender' => Gender::toString($this->gender),
-            'image' => $this->image
+            'gender' => Gender::toString($this->gender)
         );
     }
     
     public function toJson(){
-        return json_encode($this->toArray());
+        $s = json_encode($this->toArray());
+        return (substr($s, 0, -1).", \"image\":\"".$this->image."\"}");
     }
 
 }

@@ -10,10 +10,16 @@ class Connection {
 
     //construtor
     public function __construct() {
-        $this->servidorBD = "localhost";
+        
+        $this->servidorBD = "mysql.hostinger.es";
+        $this->usuarioBD = "u386620363_omw";
+        $this->senhaBD = "onmyway";
+        $this->nomeBD = "u386620363_omw";
+        
+        /*$this->servidorBD = "localhost";
         $this->usuarioBD = "root";
         $this->senhaBD = "";
-        $this->nomeBD = "bike_routes";
+        $this->nomeBD = "bike_routes";*/
 
         $this->conexao = mysqli_connect($this->servidorBD, $this->usuarioBD, $this->senhaBD, $this->nomeBD) or print (mysql_error());
     }
