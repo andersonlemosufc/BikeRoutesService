@@ -196,12 +196,13 @@
         return $res;
     }
     
-    function retrieve_password($mail, $password){
+    function retrieve_password($mail){
+        $password=generate_string();
         $aux = 0;
         $dao = new UserDAO();
         $u = $dao->findByMail($mail);
         if($u!=null){
-            $u->setPassword($password);
+            $u->setPassword(md5($password));
             $aux = $dao->update($u);
             send_mail_retrieve_password($mail, $password);
         }

@@ -27,7 +27,7 @@
             case "cancel_attendance": $res = update_user_event($_POST['event_id'], $_POST['user_id'], $_POST['confirmed']); break;
             case "invite": $res = invite($_POST['event_id'], $_POST['user_id'], $_POST['confirmed']); break;
             case "invite_many_people": $res = invite_many_people($_POST['event_id'],$_POST['users_ids']); break;
-            case "retrieve_password": $res = retrieve_password($_POST['mail'], $_POST['password']);
+            case "retrieve_password": $res = retrieve_password($_POST['mail']);
         }
         exit($res);
     }

@@ -13,10 +13,8 @@
         include_once 'util.php';
         include_once './actions_event.php';
         
-       
-        $u = new User();
+        echo(generate_string());
         
-        echo($u->toJson());
         ?>
         
     </body>

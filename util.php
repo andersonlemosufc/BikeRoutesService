@@ -53,4 +53,11 @@ function send_mail_retrieve_password($mail, $password){
     mail($mail, $subject, $msg, $headers);
 }
 
+function generate_string(){
+    $s = "ABCDEFGHYJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"; 
+    $res="";
+    for($k=0;$k<10;$k++) $res .= $s{rand(0,61)};
+    return $res;
+}
+
 ?>
